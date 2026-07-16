@@ -10,6 +10,7 @@ public record Ticket(
     String description, 
     TicketStatusEnum status, 
     LocalDateTime createdAt, 
-    LocalDateTime solvedAt
+    LocalDateTime solvedAt,
+    User assignedTo
     
 ) {}

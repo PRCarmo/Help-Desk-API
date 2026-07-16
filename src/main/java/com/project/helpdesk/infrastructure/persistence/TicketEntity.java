@@ -28,13 +28,24 @@ public class TicketEntity {
     
     private LocalDateTime solvedAt;
 
-    public TicketEntity(User caller, String problem, String description, TicketStatusEnum status, LocalDateTime createdAt, LocalDateTime solvedAt) {
-        this.caller = caller;
-        this.problem = problem;
-        this.description = description;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.solvedAt = solvedAt;
+    private User assignedTo;
+
+    public TicketEntity(
+        User caller, 
+        String problem, 
+        String description, 
+        TicketStatusEnum status, 
+        LocalDateTime createdAt, 
+        LocalDateTime solvedAt,
+        User assignedTo
+        ) {
+            this.caller = caller;
+            this.problem = problem;
+            this.description = description;
+            this.status = status;
+            this.createdAt = createdAt;
+            this.solvedAt = solvedAt;
+            this.assignedTo = assignedTo;
     }
     
 }

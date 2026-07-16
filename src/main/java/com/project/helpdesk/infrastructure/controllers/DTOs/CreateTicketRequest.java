@@ -12,6 +12,7 @@ public record CreateTicketRequest(
     String description,
     TicketStatusEnum status,
     LocalDateTime createdAt,
-    LocalDateTime solvedAt
+    LocalDateTime solvedAt,
+    User assignedTo
 
 ) {}
