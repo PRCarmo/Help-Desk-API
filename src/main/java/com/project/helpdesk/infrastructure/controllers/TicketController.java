@@ -2,12 +2,15 @@ package com.project.helpdesk.infrastructure.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
 
 import lombok.RequiredArgsConstructor;
 
-import com.project.helpdesk.application.useCases.CreateTicketInteractor;
+import com.project.helpdesk.application.useCases.*;
 import com.project.helpdesk.infrastructure.controllers.DTOs.CreateTicketRequest;
 import com.project.helpdesk.infrastructure.controllers.DTOs.CreateTicketResponse;
 import com.project.helpdesk.infrastructure.controllers.DTOs.TicketDTOMapper;
@@ -19,6 +22,7 @@ import com.project.helpdesk.domain.entities.Ticket;
 public class TicketController {
 
     private final CreateTicketInteractor createTicketInteractor;
+    private final DeleteTicketInteractor deleteTicketInteractor;
     private final TicketDTOMapper ticketDTOMapper;
 
     @PostMapping
@@ -28,6 +32,12 @@ public class TicketController {
 
         return ticketDTOMapper.toResponse(ticket);
     }
-    
-    
+
+    @DeleteMapping
+    ResponseEntity<Void> delete(@PathVariable Long id) {
+        
+        deleteTicketInteractor.deleteTicket(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

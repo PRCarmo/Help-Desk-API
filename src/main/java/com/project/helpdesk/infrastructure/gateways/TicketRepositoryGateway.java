@@ -25,5 +25,14 @@ public class TicketRepositoryGateway implements TicketGateway {
         TicketEntity savedObj = ticketRepository.save(ticketEntity);
         return ticketEntityMapper.toDomainObj(savedObj);
     }
+
+    @Override
+    public void deleteTicket(Long id) {
+        if (ticketRepository.existsById(id)) {
+            ticketRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Ticket with id " + id + " not found");
+        }
+    }
     
 }

@@ -3,7 +3,7 @@ package com.project.helpdesk.main;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.project.helpdesk.application.useCases.CreateTicketInteractor;
+import com.project.helpdesk.application.useCases.*;
 import com.project.helpdesk.application.gateways.TicketGateway;
 import com.project.helpdesk.infrastructure.gateways.TicketEntityMapper;
 import com.project.helpdesk.infrastructure.gateways.TicketRepositoryGateway;
@@ -16,6 +16,11 @@ public class TicketConfig {
     @Bean
     CreateTicketInteractor createTicketCase(TicketGateway ticketGateway) {
         return new CreateTicketInteractor(ticketGateway);
+    }
+
+    @Bean
+    DeleteTicketInteractor deleteTicketCase(TicketGateway ticketGateway) {
+        return new DeleteTicketInteractor(ticketGateway);
     }
 
     @Bean

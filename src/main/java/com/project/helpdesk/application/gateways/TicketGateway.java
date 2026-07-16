@@ -4,4 +4,6 @@ import com.project.helpdesk.domain.entities.Ticket;
 
 public interface TicketGateway {
     Ticket createTicket(Ticket ticket);
+
+    void deleteTicket(Long id);
 }

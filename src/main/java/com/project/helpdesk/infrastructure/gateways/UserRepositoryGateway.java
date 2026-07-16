@@ -22,5 +22,17 @@ public class UserRepositoryGateway implements UserGateway {
         UserEntity savedObj = userRepository.save(userEntity);
         return userEntityMapper.toDomainObj(savedObj);
     }
+
+    @Override 
+    public void deleteUser(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("User with id " + id + " not found");
+        }
+    }
+
+    //TODO: Lembrar de implementar tratamento de erros nesses métodos
+    //TODO: Lembrar de padronizar o código desses métodos (Ex: adaptar createUser para o modelo de deleteUser)
     
 }
