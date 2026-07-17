@@ -23,6 +23,11 @@ public class UserConfig {
     }
 
     @Bean
+    GetUserByIdInteractor getUserByIdInteractor(UserGateway userGateway) {
+        return new GetUserByIdInteractor(userGateway);
+    }
+
+    @Bean
     UserGateway userGateway(UserRepository userRepository, UserEntityMapper userEntityMapper) {
         return new UserRepositoryGateway(userRepository, userEntityMapper);
     }

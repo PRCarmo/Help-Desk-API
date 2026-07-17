@@ -4,7 +4,7 @@ import com.project.helpdesk.application.gateways.TicketGateway;
 
 public class DeleteTicketInteractor {
     
-    private TicketGateway ticketGateway;
+    private final TicketGateway ticketGateway;
 
     public DeleteTicketInteractor(TicketGateway ticketGateway) {
         this.ticketGateway = ticketGateway;

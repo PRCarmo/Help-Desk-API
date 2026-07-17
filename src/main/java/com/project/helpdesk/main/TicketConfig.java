@@ -24,6 +24,11 @@ public class TicketConfig {
     }
 
     @Bean
+    GetTicketByIdInteractor getTicketByIdCase(TicketGateway ticketGateway) {
+        return new GetTicketByIdInteractor(ticketGateway);
+    }
+
+    @Bean
     TicketGateway ticketGateway(TicketRepository ticketRepository, TicketEntityMapper ticketEntityMapper) {
       return new TicketRepositoryGateway(ticketRepository, ticketEntityMapper); 
     }

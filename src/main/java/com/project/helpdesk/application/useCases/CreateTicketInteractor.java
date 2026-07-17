@@ -5,7 +5,7 @@ import com.project.helpdesk.application.gateways.TicketGateway;
 
 public class CreateTicketInteractor {
 
-    private TicketGateway ticketGateway;
+    private final TicketGateway ticketGateway;
 
     public CreateTicketInteractor(TicketGateway ticketGateway) {
         this.ticketGateway = ticketGateway;

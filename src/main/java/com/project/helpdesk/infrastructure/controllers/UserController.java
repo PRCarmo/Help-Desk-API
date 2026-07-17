@@ -15,6 +15,8 @@ import com.project.helpdesk.infrastructure.controllers.DTOs.CreateUserRequest;
 import com.project.helpdesk.infrastructure.controllers.DTOs.CreateUserResponse;
 import com.project.helpdesk.infrastructure.controllers.DTOs.UserDTOMapper;
 import com.project.helpdesk.domain.entities.User;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("v1/users")
@@ -23,6 +25,7 @@ public class UserController {
 
     private final CreateUserInteractor createUserInteractor;
     private final DeleteUserInteractor deleteUserInteractor;
+    private final GetUserByIdInteractor getUserByIdInteractor;
     private final UserDTOMapper userDTOMapper;
     
     @PostMapping
@@ -31,6 +34,16 @@ public class UserController {
         User user = createUserInteractor.createUser(UserBussinessObj);
         return userDTOMapper.toResponse(user);
     }
+
+    @GetMapping("/{id}")
+    ResponseEntity<User> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(
+            getUserByIdInteractor
+                .getUserById(id)
+        );
+    }
+
+    // TODO: Corrigir problemas de vazamento das entidades ex: método getById em ambos os controllers
     
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable Long id) {

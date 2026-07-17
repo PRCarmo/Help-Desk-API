@@ -26,3 +26,5 @@ public class UserEntity {
         this.role = role;
     }
 }
+
+//TODO:decidir entre tabela com annotations do spring ou se ela vai ser escrita em SQL

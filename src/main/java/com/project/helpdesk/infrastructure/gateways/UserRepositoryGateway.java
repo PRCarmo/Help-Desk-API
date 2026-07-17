@@ -25,14 +25,26 @@ public class UserRepositoryGateway implements UserGateway {
 
     @Override 
     public void deleteUser(Long id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-        } else {
-            throw new ResourceNotFoundException("User with id " + id + " not found");
-        }
+        UserEntity user = userRepository.findById(id)
+            .orElseThrow(() ->
+                new ResourceNotFoundException("User with ID " + id + " not found")
+            );
+            
+        userRepository.delete(user);
     }
 
-    //TODO: Lembrar de implementar tratamento de erros nesses métodos
-    //TODO: Lembrar de padronizar o código desses métodos (Ex: adaptar createUser para o modelo de deleteUser)
+    @Override
+    public User getUserById(Long id) {
+        UserEntity foundUser = 
+        userRepository.findById(id)
+            .orElseThrow(() ->
+                new ResourceNotFoundException("User with ID " + id + " not found")
+            );
+            
+        return userEntityMapper.toDomainObj(foundUser);
+    }
+
+    /* TODO: Lembrar de implementar tratamento de erros nesses métodos
+    TODO: Lembrar de padronizar o código desses métodos (Ex: adaptar createUser para o modelo de deleteUser) */
     
 }

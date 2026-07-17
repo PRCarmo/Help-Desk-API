@@ -4,7 +4,7 @@ import com.project.helpdesk.application.gateways.UserGateway;
 
 public class DeleteUserInteractor {
     
-    private UserGateway userGateway;
+    private final UserGateway userGateway;
 
     public DeleteUserInteractor(UserGateway userGateway) {
         this.userGateway = userGateway;

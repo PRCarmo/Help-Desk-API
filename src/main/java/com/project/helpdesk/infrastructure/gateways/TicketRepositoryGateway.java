@@ -28,11 +28,19 @@ public class TicketRepositoryGateway implements TicketGateway {
 
     @Override
     public void deleteTicket(Long id) {
-        if (ticketRepository.existsById(id)) {
-            ticketRepository.deleteById(id);
-        } else {
-            throw new ResourceNotFoundException("Ticket with id " + id + " not found");
-        }
+        TicketEntity user = 
+            ticketRepository.findById(id)
+                .orElseThrow(() -> 
+                    new ResourceNotFoundException("Ticket with ID " + id + " not found")
+            );
     }
     
+    @Override
+    public Ticket getTicketById(Long id) {
+        TicketEntity foundTicket =
+            ticketRepository.findById(id)
+                .orElseThrow(() ->
+                    new ResourceNotFoundException("Ticket with ID " + id + " not found")
+            );
+    }   
 }
