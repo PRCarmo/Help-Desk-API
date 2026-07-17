@@ -28,6 +28,11 @@ public class UserConfig {
     }
 
     @Bean
+    ListAllUsersInteractor listAllUsersInteractor(UserGateway userGateway) {
+        return new ListAllUsersInteractor(userGateway);
+    }
+
+    @Bean
     UserGateway userGateway(UserRepository userRepository, UserEntityMapper userEntityMapper) {
         return new UserRepositoryGateway(userRepository, userEntityMapper);
     }

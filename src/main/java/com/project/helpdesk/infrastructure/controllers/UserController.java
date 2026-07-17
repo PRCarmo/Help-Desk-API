@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,6 @@ import com.project.helpdesk.infrastructure.controllers.DTOs.UserDTOMapper;
 import com.project.helpdesk.domain.entities.User;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @RestController
 @RequestMapping("v1/users")
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class UserController {
     private final CreateUserInteractor createUserInteractor;
     private final DeleteUserInteractor deleteUserInteractor;
     private final GetUserByIdInteractor getUserByIdInteractor;
+    private final ListAllUsersInteractor listAllUsersInteractor;
     private final UserDTOMapper userDTOMapper;
     
     @PostMapping
@@ -40,10 +42,19 @@ public class UserController {
         return ResponseEntity.ok(
             getUserByIdInteractor
                 .getUserById(id)
-        );
+            );
     }
 
-    // TODO: Corrigir problemas de vazamento das entidades ex: método getById em ambos os controllers
+    @GetMapping
+    ResponseEntity<List<User>> listAll() {
+        return ResponseEntity.ok(
+            listAllUsersInteractor
+                .listAllUsers()
+            );
+    }
+    
+    // TODO: Corrigir problemas de vazamento das entidades ex: métodos get em ambos os controllers
+    //TODO: Transformar essa list em Page futuramente
     
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable Long id) {

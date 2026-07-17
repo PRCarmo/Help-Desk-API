@@ -1,5 +1,8 @@
 package com.project.helpdesk.infrastructure.gateways;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.project.helpdesk.application.gateways.TicketGateway;
 import com.project.helpdesk.domain.entities.Ticket;
 import com.project.helpdesk.infrastructure.persistence.TicketEntity;
@@ -42,5 +45,14 @@ public class TicketRepositoryGateway implements TicketGateway {
                 .orElseThrow(() ->
                     new ResourceNotFoundException("Ticket with ID " + id + " not found")
             );
-    }   
+    }
+
+    @Override
+    public List<Ticket> listAllTickets() {
+        List<TicketEntity> ticketEntities = ticketRepository.findAll();
+        List<Ticket> tickets =
+            ticketEntities.stream()
+                .map(ticketEntityMapper::toDomainObj)
+                    .collect(Collectors.toList());
+    }
 }

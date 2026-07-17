@@ -1,5 +1,8 @@
 package com.project.helpdesk.infrastructure.gateways;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.project.helpdesk.application.gateways.UserGateway;
 import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.infrastructure.persistence.UserEntity;
@@ -44,7 +47,21 @@ public class UserRepositoryGateway implements UserGateway {
         return userEntityMapper.toDomainObj(foundUser);
     }
 
-    /* TODO: Lembrar de implementar tratamento de erros nesses métodos
-    TODO: Lembrar de padronizar o código desses métodos (Ex: adaptar createUser para o modelo de deleteUser) */
+    @Override
+    public List<User> listAllUsers() {
+        List<UserEntity> userEntities = userRepository.findAll();
+        List<User> users = 
+            userEntities
+                .stream()
+                .map(userEntityMapper::toDomainObj)
+                    .collect(Collectors.toList());
+                    
+        return users;
+
+        // Corrigir problema de vazamento de dados com DTO aqui, e no ticket também. Se for necessário.
+    }
+
+    // TODO: Lembrar de implementar tratamento de erros nesses métodos
+    // TODO: Lembrar de padronizar o código desses métodos (Ex: adaptar createUser para o modelo de deleteUser) */
     
 }

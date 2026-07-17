@@ -12,7 +12,9 @@ import com.project.helpdesk.infrastructure.controllers.DTOs.TicketDTOMapper;
 
 @Configuration
 public class TicketConfig {
-    
+    // O código desses arquivos de configuração 
+    // substitui o uso de @Autowired para injeção de dependências (beans)
+    // em outras partes do código, reforçando o desacoplamento
     @Bean
     CreateTicketInteractor createTicketCase(TicketGateway ticketGateway) {
         return new CreateTicketInteractor(ticketGateway);
@@ -26,6 +28,11 @@ public class TicketConfig {
     @Bean
     GetTicketByIdInteractor getTicketByIdCase(TicketGateway ticketGateway) {
         return new GetTicketByIdInteractor(ticketGateway);
+    }
+
+    @Bean
+    ListAllTicketsInteractor listAllTicketsInteractor(TicketGateway ticketGateway) {
+        return new ListAllTicketsInteractor(ticketGateway);
     }
 
     @Bean
