@@ -13,9 +13,8 @@ import org.springframework.http.ResponseEntity;
 import lombok.RequiredArgsConstructor;
 
 import com.project.helpdesk.application.useCases.user.*;
+import com.project.helpdesk.infrastructure.DTOs.user.*;
 import com.project.helpdesk.domain.entities.User;
-import com.project.helpdesk.infrastructure.DTOs.user.CreateUserRequest;
-import com.project.helpdesk.infrastructure.DTOs.user.CreateUserResponse;
 import com.project.helpdesk.infrastructure.DTOs.user.UserDTOMapper;
 
 import org.springframework.web.bind.annotation.GetMapping;

@@ -10,61 +10,74 @@ import com.project.helpdesk.infrastructure.persistence.ticket.TicketRepository;
 
 public class TicketRepositoryGateway implements TicketGateway {
 
-    private final TicketRepository ticketRepository;
-    private final TicketEntityMapper ticketEntityMapper;
+    private final TicketRepository repository;
+    private final TicketEntityMapper entityMapper;
 
     public TicketRepositoryGateway(
-        TicketRepository ticketRepository, 
-        TicketEntityMapper ticketEntityMapper
+        TicketRepository repository, 
+        TicketEntityMapper entityMapper
     ) {
-        this.ticketRepository = ticketRepository;
-        this.ticketEntityMapper = ticketEntityMapper;
+        this.repository = repository;
+        this.entityMapper = entityMapper;
     }
 
     @Override
     public Ticket createTicket(Ticket ticketDomainObj) {
-        TicketEntity ticketEntity = ticketEntityMapper.toEntity(ticketDomainObj);
-        TicketEntity savedObj = ticketRepository.save(ticketEntity);
-        return ticketEntityMapper.toDomainObj(savedObj);
+        TicketEntity ticket = entityMapper.toEntity(ticketDomainObj);
+
+        Long ticketId = ticket.getId();
+
+        if (repository.existsById(ticketId)) {
+            throw new ResourceNotFoundException("Ticket with id " + ticketId + " already exists");
+        } else {
+            TicketEntity savedObj = repository.save(ticket);
+            return entityMapper.toDomainObj(savedObj);
+        }
     }
 
     @Override
     public void deleteTicket(Long id) {
         TicketEntity user = 
-            ticketRepository.findById(id)
+            repository.findById(id)
                 .orElseThrow(() -> 
                     new ResourceNotFoundException("Ticket with ID " + id + " not found")
             );
+
+        repository.delete(user);
     }
     
     @Override
     public Ticket getTicketById(Long id) {
         TicketEntity foundTicket =
-            ticketRepository.findById(id)
+            repository.findById(id)
                 .orElseThrow(() ->
                     new ResourceNotFoundException("Ticket with ID " + id + " not found")
             );
+
+        return entityMapper.toDomainObj(foundTicket);
     }
 
     @Override
     public List<Ticket> listAllTickets() {
-        List<TicketEntity> ticketEntities = ticketRepository.findAll();
+        List<TicketEntity> ticketEntities = repository.findAll();
         List<Ticket> tickets =
             ticketEntities.stream()
-                .map(ticketEntityMapper::toDomainObj)
+                .map(entityMapper::toDomainObj)
                     .collect(Collectors.toList());
+
+        return tickets;
     }
 
     @Override
     public Ticket updateTicket(Long id, Ticket ticket) {
         TicketEntity requestedTicket = 
-            ticketRepository.findById(id)
+            repository.findById(id)
                 .orElseThrow(()->
                     ResourceNotFoundException("User with ID " + id + " not found")
             );
 
         TicketEntity updateInfo = 
-            ticketEntityMapper.toEntity(ticket);
+            entityMapper.toEntity(ticket);
 
         requestedTicket.setCaller(updateInfo.getCaller());
         requestedTicket.setProblem(updateInfo.getProblem());
@@ -72,10 +85,8 @@ public class TicketRepositoryGateway implements TicketGateway {
         requestedTicket.setStatus(updateInfo.getStatus());
         requestedTicket.setAssignedTo(updateInfo.getAssignedTo());
 
-        ticketRepository.save(requestedTicket);
+        repository.save(requestedTicket);
 
-        Ticket updatedTicket = ticketEntityMapper.toDomainObj(requestedTicket);
-
-        return updatedTicket;
+        return entityMapper.toDomainObj(requestedTicket);
     }
 }

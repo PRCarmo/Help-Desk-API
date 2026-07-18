@@ -14,9 +14,8 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import com.project.helpdesk.application.useCases.ticket.*;
+import com.project.helpdesk.infrastructure.DTOs.ticket.*;
 import com.project.helpdesk.domain.entities.Ticket;
-import com.project.helpdesk.infrastructure.DTOs.ticket.CreateTicketRequest;
-import com.project.helpdesk.infrastructure.DTOs.ticket.CreateTicketResponse;
 import com.project.helpdesk.infrastructure.DTOs.ticket.TicketDTOMapper;
 
 import org.springframework.web.bind.annotation.GetMapping;

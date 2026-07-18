@@ -10,50 +10,62 @@ import com.project.helpdesk.infrastructure.persistence.user.UserRepository;
 
 public class UserRepositoryGateway implements UserGateway {
 
-    private final UserRepository userRepository;
-    private final UserEntityMapper userEntityMapper;
+    private final UserRepository repository;
+    private final UserEntityMapper entityMapper;
 
-    public UserRepositoryGateway(UserRepository userRepository, UserEntityMapper userEntityMapper) {
-        this.userRepository = userRepository;
-        this.userEntityMapper = userEntityMapper;
+    public UserRepositoryGateway(UserRepository repository, UserEntityMapper entityMapper) {
+        this.repository = repository;
+        this.entityMapper = entityMapper;
     }
 
     @Override
     public User createUser(User userDomainObj) {
-        UserEntity userEntity = userEntityMapper.toEntity(userDomainObj);
-        UserEntity savedObj = userRepository.save(userEntity);
-        return userEntityMapper.toDomainObj(savedObj);
+        UserEntity user = entityMapper.toEntity(userDomainObj);
+
+        Long userId = user.getId();
+
+        if (repository.existsById(userId)) {
+
+            throw new ResourceAlreadyExistsException("User with ID " + userId + " already exists"); 
+        
+        } else {
+
+            UserEntity savedUser = repository.save(user);
+            
+            return entityMapper.toDomainObj(savedUser);
+        
+        }
     }
 
     @Override 
     public void deleteUser(Long id) {
-        UserEntity user = userRepository.findById(id)
+        UserEntity user = repository.findById(id)
             .orElseThrow(() ->
                 new ResourceNotFoundException("User with ID " + id + " not found")
             );
             
-        userRepository.delete(user);
+        repository.delete(user);
     }
 
     @Override
     public User getUserById(Long id) {
         UserEntity foundUser = 
-        userRepository.findById(id)
+        repository.findById(id)
             .orElseThrow(() ->
                 new ResourceNotFoundException("User with ID " + id + " not found")
             );
-            
-        return userEntityMapper.toDomainObj(foundUser);
+        
+        return entityMapper.toDomainObj(foundUser);
     }
 
     @Override
     public List<User> listAllUsers() {
-        List<UserEntity> userEntities = userRepository.findAll();
+        List<UserEntity> userEntities = repository.findAll();
         List<User> users = 
             userEntities
                 .stream()
-                .map(userEntityMapper::toDomainObj)
-                    .collect(Collectors.toList());
+                .map(entityMapper::toDomainObj)
+                .collect(Collectors.toList());
                     
         return users;
     }
@@ -61,26 +73,23 @@ public class UserRepositoryGateway implements UserGateway {
     @Override
     public User updateUser(Long id, User user) {
         UserEntity requestedUser = 
-            userRepository.findById(id)
+            repository.findById(id)
                 .orElseThrow(() ->
                     new ResourceNotFoundException("User with ID " + id + " not found")
                 );
 
-        UserEntity updateInfo = userEntityMapper.toEntity(user);
+        UserEntity updateInfo = entityMapper.toEntity(user);
 
         requestedUser.setName(updateInfo.getName());
         requestedUser.setPassword(updateInfo.getPassword());
         requestedUser.setRole(updateInfo.getRole());
 
-        userRepository.save(requestedUser);
+        repository.save(requestedUser);
 
-        User updatedUser = userEntityMapper.toDomainObj(requestedUser);
-
-        return updatedUser;
+        return entityMapper.toDomainObj(requestedUser);
     }
 
     // Corrigir problemas de vazamento de dados com DTOs nesses métodos (e no ticket também).
-    // TODO: Lembrar de implementar tratamento de erros nesses métodos
-    // TODO: Lembrar de padronizar o código desses métodos (Ex: adaptar createUser para o modelo de deleteUser) */
+    // TODO: Lembrar de criar o tratamento de exceções nas diferentes camadas do projeto
     
 }
