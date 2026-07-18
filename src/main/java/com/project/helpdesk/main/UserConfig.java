@@ -33,6 +33,11 @@ public class UserConfig {
     }
 
     @Bean
+    UpdateUserInteractor updateUserInteractor(UserGateway userGateway) {
+        return new UpdateUserInteractor(userGateway);
+    }
+
+    @Bean
     UserGateway userGateway(UserRepository userRepository, UserEntityMapper userEntityMapper) {
         return new UserRepositoryGateway(userRepository, userEntityMapper);
     }

@@ -57,10 +57,30 @@ public class UserRepositoryGateway implements UserGateway {
                     .collect(Collectors.toList());
                     
         return users;
-
-        // Corrigir problema de vazamento de dados com DTO aqui, e no ticket também. Se for necessário.
     }
 
+    @Override
+    public User updateUser(Long id, User user) {
+        UserEntity requestedUser = 
+            userRepository.findById(id)
+                .orElseThrow(() ->
+                    new ResourceNotFoundException("User with ID " + id + " not found")
+                );
+
+        UserEntity updateInfo = userEntityMapper.toEntity(user);
+
+        requestedUser.setName(updateInfo.getName());
+        requestedUser.setPassword(updateInfo.getPassword());
+        requestedUser.setRole(updateInfo.getRole());
+
+        userRepository.save(requestedUser);
+
+        User updatedUser = userEntityMapper.toDomainObj(requestedUser);
+
+        return updatedUser;
+    }
+
+    // Corrigir problemas de vazamento de dados com DTOs nesses métodos (e no ticket também).
     // TODO: Lembrar de implementar tratamento de erros nesses métodos
     // TODO: Lembrar de padronizar o código desses métodos (Ex: adaptar createUser para o modelo de deleteUser) */
     

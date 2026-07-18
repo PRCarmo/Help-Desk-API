@@ -19,6 +19,8 @@ import com.project.helpdesk.infrastructure.controllers.DTOs.CreateTicketResponse
 import com.project.helpdesk.infrastructure.controllers.DTOs.TicketDTOMapper;
 import com.project.helpdesk.domain.entities.Ticket;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -30,6 +32,7 @@ public class TicketController {
     private final DeleteTicketInteractor deleteTicketInteractor;
     private final GetTicketByIdInteractor getTicketByIdInteractor;
     private final ListAllTicketsInteractor listAllTicketsInteractor;
+    private final UpdateTicketInteractor updateTicketInteractor;
     private final TicketDTOMapper ticketDTOMapper;
 
     @PostMapping
@@ -53,6 +56,19 @@ public class TicketController {
         return ResponseEntity.ok(
             listAllTicketsInteractor
                 .listAllTickets()
+            );
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Ticket> update(
+        @PathVariable Long id, 
+        @RequestBody Ticket ticket
+        
+        ) {
+
+        return ResponseEntity.ok(
+            updateTicketInteractor
+                .updateTicket(id, ticket)
             );
     }
     

@@ -36,6 +36,11 @@ public class TicketConfig {
     }
 
     @Bean
+    UpdateTicketInteractor updateTicketInteractor(TicketGateway ticketGateway) {
+        return new UpdateTicketInteractor(ticketGateway);
+    }
+
+    @Bean
     TicketGateway ticketGateway(TicketRepository ticketRepository, TicketEntityMapper ticketEntityMapper) {
       return new TicketRepositoryGateway(ticketRepository, ticketEntityMapper); 
     }

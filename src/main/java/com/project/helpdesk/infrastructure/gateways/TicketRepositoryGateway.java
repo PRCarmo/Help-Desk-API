@@ -55,4 +55,28 @@ public class TicketRepositoryGateway implements TicketGateway {
                 .map(ticketEntityMapper::toDomainObj)
                     .collect(Collectors.toList());
     }
+
+    @Override
+    public Ticket updateTicket(Long id, Ticket ticket) {
+        TicketEntity requestedTicket = 
+            ticketRepository.findById(id)
+                .orElseThrow(()->
+                    ResourceNotFoundException("User with ID " + id + " not found")
+            );
+
+        TicketEntity updateInfo = 
+            ticketEntityMapper.toEntity(ticket);
+
+        requestedTicket.setCaller(updateInfo.getCaller());
+        requestedTicket.setProblem(updateInfo.getProblem());
+        requestedTicket.setDescription(updateInfo.getDescription());
+        requestedTicket.setStatus(updateInfo.getStatus());
+        requestedTicket.setAssignedTo(updateInfo.getAssignedTo());
+
+        ticketRepository.save(requestedTicket);
+
+        Ticket updatedTicket = ticketEntityMapper.toDomainObj(requestedTicket);
+
+        return updatedTicket;
+    }
 }

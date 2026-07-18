@@ -12,4 +12,6 @@ public interface UserGateway {
     User getUserById(Long id);
 
     List<User> listAllUsers();
+
+    User updateUser(Long id, User user);
 }

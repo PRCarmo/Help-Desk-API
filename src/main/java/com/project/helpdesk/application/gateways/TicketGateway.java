@@ -12,4 +12,6 @@ public interface TicketGateway {
     Ticket getTicketById(Long id);
 
     List<Ticket> listAllTickets();
+
+    Ticket updateTicket(Long id, Ticket ticket);
 }
