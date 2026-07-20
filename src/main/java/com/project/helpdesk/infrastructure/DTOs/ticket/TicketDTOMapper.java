@@ -3,8 +3,8 @@ package com.project.helpdesk.infrastructure.DTOs.ticket;
 import com.project.helpdesk.domain.entities.Ticket;
 
 public class TicketDTOMapper {
-    public CreateTicketResponse toResponse(Ticket ticket) {
-        return new CreateTicketResponse(
+    public TicketResponse toResponse(Ticket ticket) {
+        return new TicketResponse(
             ticket.caller(),
             ticket.problem(),
             ticket.description(),
@@ -15,7 +15,7 @@ public class TicketDTOMapper {
         );
     }
 
-    public Ticket toTicket(CreateTicketRequest request) {
+    public Ticket toTicket(TicketRequest request) {
         return new Ticket(
             request.caller(),
             request.problem(),

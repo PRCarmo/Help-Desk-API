@@ -2,20 +2,21 @@ package com.project.helpdesk.presentation.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import org.springframework.http.ResponseEntity;
+
+import org.springframework.http.HttpStatus;
 
 import lombok.RequiredArgsConstructor;
 
 import com.project.helpdesk.application.useCases.user.*;
 import com.project.helpdesk.infrastructure.DTOs.user.*;
 import com.project.helpdesk.domain.entities.User;
-import com.project.helpdesk.infrastructure.DTOs.user.UserDTOMapper;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,56 +35,46 @@ public class UserController {
     private final UserDTOMapper userDTOMapper;
     
     @PostMapping
-    CreateUserResponse create(@RequestBody CreateUserRequest request) {
+    @ResponseStatus(HttpStatus.CREATED)
+    UserResponse create(@RequestBody UserRequest request) {
         User UserBussinessObj = userDTOMapper.toUser(request);
         User user = createUserInteractor.createUser(UserBussinessObj);
         return userDTOMapper.toResponse(user);
     }
 
+    @PutMapping("/{id}")
+    UserResponse update(@PathVariable Long id, @RequestBody UserRequest request) {
+        
+        User userBussinesObj = userDTOMapper.toUser(request);
+        
+        User user = updateUserInteractor.updateUser(id, userBussinesObj);
+
+        return userDTOMapper.toResponse(user);
+    }
+
     @GetMapping("/{id}")
-    ResponseEntity<User> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(
-            getUserByIdInteractor
-                .getUserById(id)
-            );
+    @ResponseStatus(HttpStatus.FOUND)
+    UserResponse getById(@PathVariable Long id) {
+            
+        User user = getUserByIdInteractor.getUserById(id);
+
+        return userDTOMapper.toResponse(user);
+        
     }
 
     @GetMapping
-    ResponseEntity<List<User>> listAll() {
-        return ResponseEntity.ok(
-            listAllUsersInteractor
-                .listAllUsers()
-            );
-    }
-    
-    // TODO: Corrigir problemas de vazamento das entidades ex: métodos get em ambos os controllers
-    //TODO: Transformar essa list em Page futuramente
+    List<User> listAll() {
 
-    @PutMapping("/{id}")
-    ResponseEntity<User> update(
-        @PathVariable Long id, 
-        @RequestBody User user
+        return listAllUsersInteractor.listAllUsers();
         
-        ) {
-    
-        return ResponseEntity.ok(
-            updateUserInteractor
-                .updateUser(id, user)
-            );
     }
     
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void delete(@PathVariable Long id) {
 
         deleteUserInteractor.deleteUser(id);
 
-        return ResponseEntity.noContent().build();
     }
-
-    // TODO: refatorar código que fere SRP (ex: PostMapping)
-    // TODO: avaliar o uso de uma response entity nos métodos HTTP e garantir que sigam o mesmo padrão
-    // 
     
-
-
 }

@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import org.springframework.http.ResponseEntity;
-
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -36,7 +34,7 @@ public class TicketController {
     private final TicketDTOMapper ticketDTOMapper;
 
     @PostMapping
-    CreateTicketResponse create(@RequestBody CreateTicketRequest request) {
+    TicketResponse create(@RequestBody TicketRequest request) {
         Ticket TicketBussinessObj = ticketDTOMapper.toTicket(request);
         Ticket ticket = createTicketInteractor.createTicket(TicketBussinessObj);
 
@@ -44,39 +42,36 @@ public class TicketController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Ticket> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(
-            getTicketByIdInteractor
-                .getTicketById(id)
-        );
+    TicketResponse getById(@PathVariable Long id) {
+        
+        Ticket ticket = getTicketByIdInteractor.getTicketById(id);
+        
+        return ticketDTOMapper.toResponse(ticket);
     }
 
     @GetMapping
-    ResponseEntity<List<Ticket>> listAll() {
-        return ResponseEntity.ok(
-            listAllTicketsInteractor
-                .listAllTickets()
-            );
+    List<Ticket> listAll() {
+        
+        return listAllTicketsInteractor.listAllTickets();
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Ticket> update(
+    TicketResponse update(
         @PathVariable Long id, 
         @RequestBody Ticket ticket
         
-        ) {
+    ) {
 
-        return ResponseEntity.ok(
-            updateTicketInteractor
-                .updateTicket(id, ticket)
-            );
+        Ticket updatedTicket = updateTicketInteractor.updateTicket(id, ticket);
+
+        return ticketDTOMapper.toResponse(updatedTicket);
     }
     
     @DeleteMapping
-    ResponseEntity<Void> delete(@PathVariable Long id) {
+    void delete(@PathVariable Long id) {
         
         deleteTicketInteractor.deleteTicket(id);
 
-        return ResponseEntity.noContent().build();
     }
 }

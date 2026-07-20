@@ -3,11 +3,11 @@ package com.project.helpdesk.infrastructure.DTOs.user;
 import com.project.helpdesk.domain.entities.User;
 
 public class UserDTOMapper {
-    public CreateUserResponse toResponse(User user) {
-        return new CreateUserResponse(user.name(), user.role());
+    public UserResponse toResponse(User user) {
+        return new UserResponse(user.name(), user.role());
     }
 
-    public User toUser(CreateUserRequest request) {
+    public User toUser(UserRequest request) {
         return new User(request.name(), request.password(), request.role());
     }
 }

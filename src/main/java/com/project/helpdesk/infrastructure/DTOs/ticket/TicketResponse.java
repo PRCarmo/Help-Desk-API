@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
 
-public record CreateTicketResponse(
+public record TicketResponse(
 
     User caller,
     String problem,

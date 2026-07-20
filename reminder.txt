@@ -1,0 +1,20 @@
+GERAL:
+
+    TODO: Verificar se o keycloak substitui o uso de um fluxo de verificação imbutido (sergipeTec VS 5mkt)
+    TODO: Lembrar de criar as classes de exceções nas diferentes camadas do projeto
+    TODO: Criar um arquivo simples de CI/CD para esse projeto
+
+CONTROLERS
+
+    TODO: reavaliar o uso de response entity nos endpoints por outras alternativas (ex: @ResponseStatus)
+    TODO: Corrigir problemas de vazamento das entidades (ex: métodos get em ambos os controllers)
+    TODO: Transformar essa as LIST de GET ALL em PAGE (ambos os controllers)
+
+DTOs e MAPPERS:
+
+    TODO: Lembrar de criar/adaptar os DTOs para os métodos dos CONTROLLERS e REPOSITORY GATEWAYS
+    TODO: Inserir annotations do spring nos MAPPERS e DTOs para facilitar meu trabalho
+
+REPOSITORY GATEWAYS:
+
+    TODO: Corrigir problemas de vazamento de dados com DTOs nos métodos de ambas entidades (se for preciso)

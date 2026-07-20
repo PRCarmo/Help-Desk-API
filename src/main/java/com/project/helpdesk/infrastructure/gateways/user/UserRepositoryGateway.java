@@ -88,8 +88,5 @@ public class UserRepositoryGateway implements UserGateway {
 
         return entityMapper.toDomainObj(requestedUser);
     }
-
-    // Corrigir problemas de vazamento de dados com DTOs nesses métodos (e no ticket também).
-    // TODO: Lembrar de criar o tratamento de exceções nas diferentes camadas do projeto
     
 }
