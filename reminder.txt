@@ -6,15 +6,41 @@ GERAL:
 
 CONTROLERS
 
-    TODO: reavaliar o uso de response entity nos endpoints por outras alternativas (ex: @ResponseStatus)
-    TODO: Corrigir problemas de vazamento das entidades (ex: métodos get em ambos os controllers)
+    TODO: Lembrar de criar a funcionalidade de exceções 
+        pelas camadas do projeto (E substituir @ResponseStatus)
     TODO: Transformar essa as LIST de GET ALL em PAGE (ambos os controllers)
 
 DTOs e MAPPERS:
 
-    TODO: Lembrar de criar/adaptar os DTOs para os métodos dos CONTROLLERS e REPOSITORY GATEWAYS
     TODO: Inserir annotations do spring nos MAPPERS e DTOs para facilitar meu trabalho
 
 REPOSITORY GATEWAYS:
 
-    TODO: Corrigir problemas de vazamento de dados com DTOs nos métodos de ambas entidades (se for preciso)
+
+/* @Override
+    public PaginationResult<User> listAllUsers(PaginationRequest request) {
+
+        Pageable pageable = PageRequest.of(
+                request.currentPage(),
+                request.pageSize()
+        );
+
+        Page<UserEntity> page = repository.findAll(pageable);
+
+        List<User> users = entityMapper.toDomainList(page.getContent());
+
+        return new PaginationResult<>(
+                users,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages()
+        );
+    } */
+
+
+/* public PaginationResult<User> listAllUsers(PaginationRequest pageRequest) {
+        return userGateway.listAllUsers(pageRequest);
+    } */
+
+

@@ -1,5 +1,7 @@
 package com.project.helpdesk.infrastructure.gateways.user;
 
+import java.util.List;
+
 import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.infrastructure.persistence.user.UserEntity;
 
@@ -19,5 +21,11 @@ public class UserEntityMapper {
             userEntity.getPassword(), 
             userEntity.getRole()
         );
+    }
+
+    public List<User> toDomainList(List<UserEntity> entities) {
+    return entities.stream()
+            .map(this::toDomainObj)
+            .toList();
     }
 }

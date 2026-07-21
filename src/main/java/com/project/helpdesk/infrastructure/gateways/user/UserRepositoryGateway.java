@@ -65,7 +65,7 @@ public class UserRepositoryGateway implements UserGateway {
             userEntities
                 .stream()
                 .map(entityMapper::toDomainObj)
-                .collect(Collectors.toList());
+                    .collect(Collectors.toList());
                     
         return users;
     }

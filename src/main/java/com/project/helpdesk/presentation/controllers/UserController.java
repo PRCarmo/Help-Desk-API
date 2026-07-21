@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 import com.project.helpdesk.application.useCases.user.*;
 import com.project.helpdesk.infrastructure.DTOs.user.*;
@@ -63,10 +63,13 @@ public class UserController {
     }
 
     @GetMapping
-    List<User> listAll() {
+    public List<UserResponse> listAll() {
 
-        return listAllUsersInteractor.listAllUsers();
-        
+        return listAllUsersInteractor
+                .listAllUsers()
+                .stream()
+                .map(userDTOMapper::toResponse)
+                .toList();
     }
     
     @DeleteMapping("/{id}")

@@ -1,8 +1,8 @@
 package com.project.helpdesk.application.useCases.user;
 
+import java.util.List;
 import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.application.gateways.UserGateway;
-import java.util.List;
 
 public class ListAllUsersInteractor {
     
