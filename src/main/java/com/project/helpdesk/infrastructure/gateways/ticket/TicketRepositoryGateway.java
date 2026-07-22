@@ -92,11 +92,11 @@ public class TicketRepositoryGateway implements TicketGateway {
         TicketEntity updateInfo = 
             entityMapper.toEntity(ticket);
 
-        requestedTicket.setCallerId(updateInfo.getCallerId());
+        requestedTicket.setCaller(updateInfo.getCaller());
         requestedTicket.setProblem(updateInfo.getProblem());
         requestedTicket.setDescription(updateInfo.getDescription());
         requestedTicket.setStatus(updateInfo.getStatus());
-        requestedTicket.setAssignedToId(updateInfo.getAssignedToId());
+        requestedTicket.setAssignedTo(updateInfo.getAssignedTo());
 
         repository.save(requestedTicket);
 

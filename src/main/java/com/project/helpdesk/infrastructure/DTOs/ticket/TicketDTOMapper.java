@@ -5,25 +5,25 @@ import com.project.helpdesk.domain.entities.Ticket;
 public class TicketDTOMapper {
     public TicketResponse toResponse(Ticket ticket) {
         return new TicketResponse(
-            ticket.callerId(),
+            ticket.caller(),
             ticket.problem(),
             ticket.description(),
             ticket.status(),
             ticket.createdAt(),
             ticket.solvedAt(),
-            ticket.assignedToId()
+            ticket.assignedTo()
         );
     }
 
     public Ticket toTicket(TicketRequest request) {
         return new Ticket(
-            request.callerId(),
+            request.caller(),
             request.problem(),
             request.description(),
             request.status(),
             request.createdAt(),
             request.solvedAt(),
-            request.assignedToId()
+            request.assignedTo()
         );
     }
 }

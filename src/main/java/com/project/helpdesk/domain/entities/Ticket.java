@@ -1,16 +1,17 @@
 package com.project.helpdesk.domain.entities;
 
+import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
 import java.time.LocalDateTime;
 
 public record Ticket(
      
-    Long callerId, 
+    User caller, 
     String problem, 
     String description, 
     TicketStatusEnum status, 
     LocalDateTime createdAt, 
     LocalDateTime solvedAt,
-    Long assignedToId
+    User assignedTo
     
 ) {}
