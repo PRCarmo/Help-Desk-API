@@ -1,8 +1,8 @@
 package com.project.helpdesk.application.useCases.ticket;
 
 import com.project.helpdesk.domain.entities.Ticket;
+import com.project.helpdesk.domain.pagination.PaginationResult;
 import com.project.helpdesk.application.gateways.TicketGateway;
-import java.util.List;
 
 public class ListAllTicketsInteractor {
     
@@ -12,7 +12,7 @@ public class ListAllTicketsInteractor {
         this.ticketGateway = ticketGateway;
     }
 
-    public List<Ticket> listAllTickets() {
-        return ticketGateway.listAllTickets();
+    public PaginationResult<Ticket> listAllTickets(Integer currentPage, Integer pageSize) {
+        return ticketGateway.listAllTickets(currentPage, pageSize);
     }
 }

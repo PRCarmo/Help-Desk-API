@@ -1,8 +1,7 @@
 package com.project.helpdesk.application.gateways;
 
-import java.util.List;
-
 import com.project.helpdesk.domain.entities.Ticket;
+import com.project.helpdesk.domain.pagination.PaginationResult;
 
 public interface TicketGateway {
     Ticket createTicket(Ticket ticket);
@@ -11,7 +10,7 @@ public interface TicketGateway {
 
     Ticket getTicketById(Long id);
 
-    List<Ticket> listAllTickets();
+    PaginationResult<Ticket> listAllTickets(Integer currentPage, Integer PageSize);
 
     Ticket updateTicket(Long id, Ticket ticket);
 }

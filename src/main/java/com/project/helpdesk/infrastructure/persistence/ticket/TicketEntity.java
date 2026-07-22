@@ -1,7 +1,6 @@
 package com.project.helpdesk.infrastructure.persistence.ticket;
 
 import java.time.LocalDateTime;
-import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
 
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +15,7 @@ public class TicketEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private User caller;
+    private Long callerId;
 
     private String problem;
     
@@ -28,24 +27,24 @@ public class TicketEntity {
     
     private LocalDateTime solvedAt;
 
-    private User assignedTo;
+    private Long assignedToId;
 
     public TicketEntity(
-        User caller, 
+        Long callerId, 
         String problem, 
         String description, 
         TicketStatusEnum status, 
         LocalDateTime createdAt, 
         LocalDateTime solvedAt,
-        User assignedTo
+        Long assignedToId
         ) {
-            this.caller = caller;
+            this.callerId = callerId;
             this.problem = problem;
             this.description = description;
             this.status = status;
             this.createdAt = createdAt;
             this.solvedAt = solvedAt;
-            this.assignedTo = assignedTo;
+            this.assignedToId = assignedToId;
     }
     
 }

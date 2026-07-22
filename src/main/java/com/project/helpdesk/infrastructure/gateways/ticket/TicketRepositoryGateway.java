@@ -3,10 +3,16 @@ package com.project.helpdesk.infrastructure.gateways.ticket;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+
 import com.project.helpdesk.application.gateways.TicketGateway;
 import com.project.helpdesk.domain.entities.Ticket;
+import com.project.helpdesk.domain.pagination.PaginationResult;
 import com.project.helpdesk.infrastructure.persistence.ticket.TicketEntity;
 import com.project.helpdesk.infrastructure.persistence.ticket.TicketRepository;
+import com.project.helpdesk.infrastructure.persistence.user.UserEntity;
 
 public class TicketRepositoryGateway implements TicketGateway {
 
@@ -58,14 +64,21 @@ public class TicketRepositoryGateway implements TicketGateway {
     }
 
     @Override
-    public List<Ticket> listAllTickets() {
-        List<TicketEntity> ticketEntities = repository.findAll();
-        List<Ticket> tickets =
-            ticketEntities.stream()
-                .map(entityMapper::toDomainObj)
-                    .collect(Collectors.toList());
+    public PaginationResult<Ticket> listAllTickets(Integer currentPage, Integer pageSize) {
+        
+        Pageable pageable = PageRequest.of(currentPage, pageSize);
 
-        return tickets;
+        Page<TicketEntity> page = repository.findAll(pageable);
+
+        List<Ticket> tickets = entityMapper.toDomainList(page.getContent());
+
+        return new PaginationResult<>(
+                tickets,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages()
+        );
     }
 
     @Override
@@ -79,11 +92,11 @@ public class TicketRepositoryGateway implements TicketGateway {
         TicketEntity updateInfo = 
             entityMapper.toEntity(ticket);
 
-        requestedTicket.setCaller(updateInfo.getCaller());
+        requestedTicket.setCallerId(updateInfo.getCallerId());
         requestedTicket.setProblem(updateInfo.getProblem());
         requestedTicket.setDescription(updateInfo.getDescription());
         requestedTicket.setStatus(updateInfo.getStatus());
-        requestedTicket.setAssignedTo(updateInfo.getAssignedTo());
+        requestedTicket.setAssignedToId(updateInfo.getAssignedToId());
 
         repository.save(requestedTicket);
 
