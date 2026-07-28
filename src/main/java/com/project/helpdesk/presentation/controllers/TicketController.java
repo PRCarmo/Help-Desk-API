@@ -18,7 +18,7 @@ import com.project.helpdesk.application.useCases.ticket.*;
 import com.project.helpdesk.infrastructure.DTOs.ticket.*;
 import com.project.helpdesk.domain.entities.Ticket;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
-import com.project.helpdesk.domain.pagination.PaginationResult;
+import com.project.helpdesk.domain.pagination.PaginatedResult;
 
 @RestController
 @RequestMapping("v1/tickets")
@@ -52,7 +52,7 @@ public class TicketController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.FOUND)
-    PaginationResult<TicketResponse> listAll(
+    PaginatedResult<TicketResponse> listAll(
         
         @RequestParam(required = false) Long callerId,
         @RequestParam(required = false) TicketStatusEnum status,
@@ -62,7 +62,7 @@ public class TicketController {
 
     ) {
 
-        PaginationResult<Ticket> paginatedResult = 
+        PaginatedResult<Ticket> paginatedResult = 
             listAllTicketsInteractor.listAllTickets(
                 callerId, 
                 status, 

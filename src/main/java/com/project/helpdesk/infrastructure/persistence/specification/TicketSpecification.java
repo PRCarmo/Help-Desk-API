@@ -1,4 +1,4 @@
-package com.project.helpdesk.presentation;
+package com.project.helpdesk.infrastructure.persistence.specification;
 
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;

@@ -2,7 +2,7 @@ package com.project.helpdesk.application.useCases.ticket;
 
 import com.project.helpdesk.domain.entities.Ticket;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
-import com.project.helpdesk.domain.pagination.PaginationResult;
+import com.project.helpdesk.domain.pagination.PaginatedResult;
 import com.project.helpdesk.application.gateways.TicketGateway;
 
 public class ListAllTicketsInteractor {
@@ -13,7 +13,7 @@ public class ListAllTicketsInteractor {
         this.ticketGateway = ticketGateway;
     }
 
-    public PaginationResult<Ticket> listAllTickets(
+    public PaginatedResult<Ticket> listAllTickets(
         Long callerId,
         TicketStatusEnum status,
         Long assignedToId,

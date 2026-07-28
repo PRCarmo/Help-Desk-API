@@ -2,7 +2,7 @@ package com.project.helpdesk.application.gateways;
 
 import com.project.helpdesk.domain.entities.Ticket;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
-import com.project.helpdesk.domain.pagination.PaginationResult;
+import com.project.helpdesk.domain.pagination.PaginatedResult;
 
 public interface TicketGateway {
     Ticket createTicket(Ticket ticket);
@@ -11,7 +11,7 @@ public interface TicketGateway {
 
     Ticket getTicketById(Long id);
 
-    PaginationResult<Ticket> listAllTickets(
+    PaginatedResult<Ticket> listAllTickets(
         Long callerId,
         TicketStatusEnum status,
         Long assignedToId,

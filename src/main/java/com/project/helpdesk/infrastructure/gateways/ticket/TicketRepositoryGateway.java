@@ -12,11 +12,11 @@ import com.project.helpdesk.application.gateways.TicketGateway;
 import com.project.helpdesk.domain.entities.Ticket;
 import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
-import com.project.helpdesk.domain.pagination.PaginationResult;
+import com.project.helpdesk.domain.pagination.PaginatedResult;
+import com.project.helpdesk.infrastructure.persistence.specification.TicketSpecification;
 import com.project.helpdesk.infrastructure.persistence.ticket.TicketEntity;
 import com.project.helpdesk.infrastructure.persistence.ticket.TicketRepository;
 import com.project.helpdesk.infrastructure.persistence.user.UserEntity;
-import com.project.helpdesk.presentation.TicketSpecification;
 
 public class TicketRepositoryGateway implements TicketGateway {
 
@@ -68,7 +68,7 @@ public class TicketRepositoryGateway implements TicketGateway {
     }
 
     @Override
-    public PaginationResult<Ticket> listAllTickets(
+    public PaginatedResult<Ticket> listAllTickets(
         Long callerId,
         TicketStatusEnum status,
         Long assignedToId,
@@ -95,7 +95,7 @@ public class TicketRepositoryGateway implements TicketGateway {
             
         List<Ticket> tickets = page.getContent(); 
 
-        return new PaginationResult<>(
+        return new PaginatedResult<>(
                 tickets,
                 page.getNumber(),
                 page.getSize(),

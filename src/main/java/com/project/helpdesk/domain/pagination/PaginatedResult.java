@@ -2,7 +2,7 @@ package com.project.helpdesk.domain.pagination;
 
 import java.util.List;
 
-public record PaginationResult<T> (
+public record PaginatedResult<T> (
 
     List<T> data,
     Integer currentPage,

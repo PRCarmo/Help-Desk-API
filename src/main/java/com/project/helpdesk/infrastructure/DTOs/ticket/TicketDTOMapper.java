@@ -5,7 +5,7 @@ import java.util.List;
 import com.project.helpdesk.domain.entities.Ticket;
 import com.project.helpdesk.infrastructure.DTOs.ticket.TicketResponse;
 import com.project.helpdesk.infrastructure.DTOs.ticket.TicketRequest;
-import com.project.helpdesk.domain.pagination.PaginationResult;
+import com.project.helpdesk.domain.pagination.PaginatedResult;
 
 public class TicketDTOMapper {
 
@@ -33,7 +33,7 @@ public class TicketDTOMapper {
         );
     }
 
-    public PaginationResult<TicketResponse> toPaginatedResponse(PaginationResult<Ticket> paginatedObj) {
+    public PaginatedResult<TicketResponse> toPaginatedResponse(PaginatedResult<Ticket> paginatedObj) {
 
         List<TicketResponse> tickets = 
             paginatedObj
@@ -42,7 +42,7 @@ public class TicketDTOMapper {
                 .map(this::toResponse)
                 .toList();
 
-        return new PaginationResult<>(
+        return new PaginatedResult<>(
             tickets,
             paginatedObj.currentPage(),
             paginatedObj.pageSize(),
