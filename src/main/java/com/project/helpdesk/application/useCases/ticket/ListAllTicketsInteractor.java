@@ -21,6 +21,12 @@ public class ListAllTicketsInteractor {
         Integer pageSize
     
     ) {
-        return ticketGateway.listAllTickets(callerId, status, assignedToId, currentPage, pageSize);
+        return ticketGateway.listAllTickets(
+            callerId, 
+            status, 
+            assignedToId, 
+            currentPage, 
+            pageSize
+        );
     }
 }

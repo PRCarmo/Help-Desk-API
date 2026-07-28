@@ -63,6 +63,7 @@ public class UserController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.FOUND)
     public List<UserResponse> listAll() {
 
         return listAllUsersInteractor

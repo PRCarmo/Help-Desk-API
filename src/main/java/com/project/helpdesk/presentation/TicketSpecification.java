@@ -3,27 +3,26 @@ package com.project.helpdesk.presentation;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
-import com.project.helpdesk.domain.entities.Ticket;
-import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
+import com.project.helpdesk.infrastructure.persistence.ticket.TicketEntity;
 
 import java.util.List;
 import java.util.ArrayList;
 
 public class TicketSpecification {
     
-    public static Specification<Ticket> withFilters(
-            User caller,
+    public static Specification<TicketEntity> withFilters(
+            Long callerId,
             TicketStatusEnum status,
-            User assignedTo
+            Long assignedToId
     ) {
         return (root, query, cb) -> {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            if (caller != null) {
+            if (callerId != null) {
                 predicates.add(
-                    cb.equal(root.get("caller"), caller)
+                    cb.equal(root.get("caller").get("id"), callerId)
                 );
             }
 
@@ -33,9 +32,9 @@ public class TicketSpecification {
                 );
             }
 
-            if (assignedTo != null) {
+            if (assignedToId != null) {
                 predicates.add(
-                    cb.equal(root.get("assignedTo"), assignedTo)
+                    cb.equal(root.get("assignedTo").get("id"), assignedToId)
                 );
             }
 

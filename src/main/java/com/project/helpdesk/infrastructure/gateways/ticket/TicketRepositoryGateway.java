@@ -5,14 +5,18 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.domain.Page;
 
 import com.project.helpdesk.application.gateways.TicketGateway;
 import com.project.helpdesk.domain.entities.Ticket;
+import com.project.helpdesk.domain.entities.User;
+import com.project.helpdesk.domain.enums.TicketStatusEnum;
 import com.project.helpdesk.domain.pagination.PaginationResult;
 import com.project.helpdesk.infrastructure.persistence.ticket.TicketEntity;
 import com.project.helpdesk.infrastructure.persistence.ticket.TicketRepository;
 import com.project.helpdesk.infrastructure.persistence.user.UserEntity;
+import com.project.helpdesk.presentation.TicketSpecification;
 
 public class TicketRepositoryGateway implements TicketGateway {
 
@@ -64,20 +68,39 @@ public class TicketRepositoryGateway implements TicketGateway {
     }
 
     @Override
-    public PaginationResult<Ticket> listAllTickets(Integer currentPage, Integer pageSize) {
+    public PaginationResult<Ticket> listAllTickets(
+        Long callerId,
+        TicketStatusEnum status,
+        Long assignedToId,
+        Integer currentPage, 
+        Integer pageSize
+    ) {
         
         Pageable pageable = PageRequest.of(currentPage, pageSize);
 
-        Page<TicketEntity> page = repository.findAll(pageable);
+        Specification<TicketEntity> spec = 
+            TicketSpecification
+                .withFilters(
+                    callerId, 
+                    status, 
+                    assignedToId
+                );
 
-        List<Ticket> tickets = entityMapper.toDomainList(page.getContent());
+        Page<TicketEntity> entitiesPage = 
+            repository.findAll(spec, pageable);
+
+
+        Page<Ticket> page = 
+            entitiesPage.map(entityMapper::toDomainObj);
+            
+        List<Ticket> tickets = page.getContent(); 
 
         return new PaginationResult<>(
                 tickets,
                 page.getNumber(),
                 page.getSize(),
                 page.getTotalElements(),
-                page.getTotalPages()
+                page.getTotalPages() 
         );
     }
 
