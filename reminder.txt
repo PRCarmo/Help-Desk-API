@@ -1,46 +1,24 @@
 GERAL:
 
     TODO: Verificar se o keycloak substitui o uso de um fluxo de verificação imbutido (sergipeTec VS 5mkt)
+    TODO: Adicionar auditoria
+    TODO: Adicionar testes
+    TODO: Adicionar arquivos docker
     TODO: Lembrar de criar as classes de exceções nas diferentes camadas do projeto
     TODO: Criar um arquivo simples de CI/CD para esse projeto
+    TODO: Atualizar README a cada nova versão do sistema
 
 CONTROLERS
 
     TODO: Lembrar de criar a funcionalidade de exceções 
         pelas camadas do projeto (E substituir @ResponseStatus)
-    TODO: Transformar essa as LIST de GET ALL em PAGE (ambos os controllers)
 
 DTOs e MAPPERS:
 
-    TODO: Inserir annotations do spring nos MAPPERS e DTOs para facilitar meu trabalho
-
 REPOSITORY GATEWAYS:
 
+USE CASES:
 
-/* @Override
-    public PaginationResult<User> listAllUsers(PaginationRequest request) {
-
-        Pageable pageable = PageRequest.of(
-                request.currentPage(),
-                request.pageSize()
-        );
-
-        Page<UserEntity> page = repository.findAll(pageable);
-
-        List<User> users = entityMapper.toDomainList(page.getContent());
-
-        return new PaginationResult<>(
-                users,
-                page.getNumber(),
-                page.getSize(),
-                page.getTotalElements(),
-                page.getTotalPages()
-        );
-    } */
-
-
-/* public PaginationResult<User> listAllUsers(PaginationRequest pageRequest) {
-        return userGateway.listAllUsers(pageRequest);
-    } */
+    TODO: Inserir as regras de negócio mais complexas do sistema
 
 
