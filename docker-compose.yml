@@ -14,6 +14,7 @@ services:
 
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./schemas/schemas.sql:/docker-entrypoint-initdb.d/schemas.sql
 
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]

@@ -4,15 +4,15 @@ Esse projeto é o backend de um helpdesk focado em suporte técnico de TI. É um
 
 ## Índice
 
-- [Modelagem] (#Modelagem)
-- [Arquitetura] (#Decisões-de-Arquitetura)
-- [Stack] (#Stack-e-Motivações)
-- [Executar] (#Rodando-e-Testando)
-- [Relacionamentos] (#Modelo-Relacional)
-- [Estrutura] (#Estrutura-de-Pacotes)
-- [Expansões] (#Expansões-Futuras)
-- [Correções] (#Correções-Intencionadas)
-- [IA] (#Uso-de-IA-no-Projeto)
+- [Modelagem](#Modelagem)
+- [Arquitetura](#Decisões-de-Arquitetura)
+- [Stack](#Stack-e-Motivações)
+- [Executar](#Rodando-e-Testando)
+- [Relacionamentos](#Modelo-Relacional)
+- [Estrutura](#Estrutura-de-Pacotes)
+- [Expansões](#Expansões-Futuras)
+- [Correções](#Correções-Intencionadas)
+- [IA](#Uso-de-IA-no-Projeto)
 
 ## Modelagem
 - Entidades:
@@ -46,6 +46,14 @@ Execute:
 
 ```bash
 docker compose up -d
+```
+
+Ou, caso os volumes já existam no seu docker:
+
+```bash
+docker compose down
+docker volume rm postgres_general_data
+docker compose up
 ```
 
 Depois de alguns segundos, execute:
@@ -193,6 +201,8 @@ helpdeskapi/
 ├── dockerfile                            # Build multi-stage: Maven → JDK Alpine
 ├── pom.xml                               # Maven, Spring Boot 4.0.7, Java 21
 ├── README.md                             # Este arquivo
+├── schemas
+│   └── schemas.sql                       # Arquivo de inicialização dos schemas da DB
 │
 ├── src/main/java/com/project/helpdesk/
 │   ├── HelpdeskApplication.java          # Arquivo de execução do Spring Boot
@@ -232,4 +242,4 @@ helpdeskapi/
 - Todo o código que não foi escrito pelo autor foi cuidadosamente questionado, compreendido e revisado.
 - Modelos utilizados: GPT-5.1
 
-- (ADAPTAR SISTEMA PARA COINCIDIR COM ESSE DOC (CALLER, ASSIGNEDTO, SCHEMAS) e adicionar links no índice)
+- ADAPTAR SISTEMA PARA COINCIDIR COM ESSE DOC (CALLER, ASSIGNEDTO, DTOs)
