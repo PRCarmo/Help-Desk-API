@@ -4,8 +4,6 @@ Esse projeto é o backend de um helpdesk focado em suporte técnico de TI. É um
 
 ## Índice
 
-(ADAPTAR SISTEMA PARA COINCIDIR COM ESSE DOC (CALLER, ASSIGNEDTO, SCHEMAS))
-
 - [Modelagem] (#Modelagem)
 - [Arquitetura] (#Decisões-de-Arquitetura)
 - [Stack] (#Stack-e-Motivações)
@@ -18,10 +16,10 @@ Esse projeto é o backend de um helpdesk focado em suporte técnico de TI. É um
 
 ## Modelagem
 - Entidades:
-**Ticket**: A entidade central do sistema, contendo informações relevantes que cercam problemas problemas e sua eventual resolução, como `caller`, `problem`, `status`, `solvedAt`, `AssignedTo`, etc.
-**User**: Entidade simples que possibilita interação com o sistema e complementa as funcionalidades e modelagem. Possui apenas o necessário para identificação e autenticação, como `name`, `password` e `role`.
+- **Ticket**: A entidade central do sistema, contendo informações relevantes que cercam problemas problemas e sua eventual resolução, como `caller`, `problem`, `status`, `solvedAt`, `AssignedTo`, etc.
+- **User**: Entidade simples que possibilita interação com o sistema e complementa as funcionalidades e modelagem. Possui apenas o necessário para identificação e autenticação, como `name`, `password` e `role`.
 - Recursos auxiliares:
-**Pagination**: Pacote com que fornece paginação ao fluxo de Ticket, permitindo organização e consultas personalizadas.
+- **Pagination**: Pacote com que fornece paginação ao fluxo de Ticket, permitindo organização e consultas personalizadas.
 
 ## Decisões de Arquitetura
 - **Clean architecture simplificada**: O uso dessa arquitetura permite a manter a separação entre domínio, aplicação e infraestrutura sem introduzir camadas desnecessárias para o projeto, permitindo flexibilidade enquanto evita complexidade. Isso potencializa adaptabilidade do sistema à novas stacks e ambientes, reduzindo esforço necessário para a mudança.
@@ -184,11 +182,12 @@ docker compose down -v
                               └─────────────┘
 ```
 
-Ticket -> Caller -> Referência à User
-Ticket -> AssignedTo -> Referência à User
+- Ticket -> Caller -> Referência à User (chave estrangeira)
+- Ticket -> AssignedTo -> Referência à User (chave estrangeira)
 
 ## Estrutura de Pacotes
 
+```
 helpdeskapi/
 ├── docker-compose.yml                    # Serviços: postgres e aplicação
 ├── dockerfile                            # Build multi-stage: Maven → JDK Alpine
@@ -209,14 +208,15 @@ helpdeskapi/
 │   ├── application.properties            # Configuração docker
 │
 └── src/test/                             # Testes unitários e de integração
+```
 
 ## Expansões Futuras
 
-**Documentação Interativa**: Swagger UI será integrado ao sistema para permitir sincronia automática entre o código e a documentação, facilitando o entendimento da API.
-**Autenticação**: Será criado um fluxo que cuide do login e autenticação dos usuários, além de verificação de permissões para utilizar cada endpoint do sistema.
-**Logs**: Uma funcionalidade que permita registrar (automaticamente) e acessar ações realizadas durante o uso do sistema. Hibernate Envers será a principal ferramenta para isso.
-**Testes**: O projeto contará com testes unitários e de integração para garantir robustez e qualidade do código. JUnit, Mockito e Test Containers serão usados para isso.
-**Migration**: Para possibilitar o versionamento do banco de dados e oferecer melhor integração com CI/CD e testes, o sistema utilizará o Flyway futuramente.
+- **Documentação Interativa**: Swagger UI será integrado ao sistema para permitir sincronia automática entre o código e a documentação, facilitando o entendimento da API.
+- **Autenticação**: Será criado um fluxo que cuide do login e autenticação dos usuários, além de verificação de permissões para utilizar cada endpoint do sistema.
+- **Logs**: Uma funcionalidade que permita registrar (automaticamente) e acessar ações realizadas durante o uso do sistema. Hibernate Envers será a principal ferramenta para isso.
+- **Testes**: O projeto contará com testes unitários e de integração para garantir robustez e qualidade do código. JUnit, Mockito e Test Containers serão usados para isso.
+- **Migration**: Para possibilitar o versionamento do banco de dados e oferecer melhor integração com CI/CD e testes, o sistema utilizará o Flyway futuramente.
 
 ## Próximas Melhorias
 
@@ -231,3 +231,5 @@ helpdeskapi/
 - Já no que se refere a codificação, ela foi utilizada como meio de orientação (em avaliação de decisões de implementação e separação de responsabilidades) e de correção (debugging, refatoração e limpeza).
 - Todo o código que não foi escrito pelo autor foi cuidadosamente questionado, compreendido e revisado.
 - Modelos utilizados: GPT-5.1
+
+- (ADAPTAR SISTEMA PARA COINCIDIR COM ESSE DOC (CALLER, ASSIGNEDTO, SCHEMAS) e adicionar links no índice)
