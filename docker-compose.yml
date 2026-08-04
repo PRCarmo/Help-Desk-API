@@ -10,7 +10,7 @@ services:
       POSTGRES_DB: postgres
 
     ports:
-      - "5434:5434"
+      - "5433:5433"
 
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -21,18 +21,18 @@ services:
       timeout: 10s
       retries: 5
 
-    helpdesk_app:
-      container_name: helpdesk_app
-      build: .
+  helpdesk_app:
+    container_name: helpdesk_app
+    build: .
       
-      ports:
-        - "5433:5433"
+    ports:
+      - "5434:5434"
       
-      depends_on:
-        helpdesk_db:
-          condition: service_healthy
+    depends_on:
+      helpdesk_db:
+        condition: service_healthy
 
-      restart: always
+    restart: always
 
 volumes:
   postgres_general_data:
