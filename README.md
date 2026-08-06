@@ -16,8 +16,9 @@ Esse projeto é o backend de um helpdesk focado em suporte técnico de TI. É um
 
 ## Modelagem
 - Entidades:
-- **Ticket**: A entidade central do sistema, contendo informações relevantes que cercam problemas problemas e sua eventual resolução, como `callerId`, `problem`, `status`, `solvedAt`, `AssignedToId`, etc.
+- **Ticket**: A entidade central do sistema, contendo informações relevantes que cercam problemas problemas e sua eventual resolução, como `callerId`, `problem`, `status`, `updatedAt`, `AssignedToId`, etc.
 - **User**: Entidade simples que possibilita interação com o sistema e complementa as funcionalidades e modelagem. Possui apenas o necessário para identificação e autenticação, como `name`, `password` e `role`.
+
 - Recursos auxiliares:
 - **Pagination**: Pacote com que fornece paginação ao fluxo de Ticket, permitindo organização e consultas personalizadas.
 
@@ -251,5 +252,3 @@ helpdeskapi/
 - Já no que se refere a codificação, ela foi utilizada como meio de orientação (em avaliação de decisões de implementação e separação de responsabilidades) e de correção (debugging, refatoração e limpeza).
 - Todo o código que não foi escrito pelo autor foi cuidadosamente questionado, compreendido e revisado.
 - Modelos utilizados: GPT-5.1
-
-- ADAPTAR SISTEMA PARA COINCIDIR COM ESSE DOC (CALLER, ASSIGNEDTO, DTOs)
