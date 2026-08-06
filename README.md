@@ -16,7 +16,7 @@ Esse projeto é o backend de um helpdesk focado em suporte técnico de TI. É um
 
 ## Modelagem
 - Entidades:
-- **Ticket**: A entidade central do sistema, contendo informações relevantes que cercam problemas problemas e sua eventual resolução, como `caller`, `problem`, `status`, `solvedAt`, `AssignedTo`, etc.
+- **Ticket**: A entidade central do sistema, contendo informações relevantes que cercam problemas problemas e sua eventual resolução, como `callerId`, `problem`, `status`, `solvedAt`, `AssignedToId`, etc.
 - **User**: Entidade simples que possibilita interação com o sistema e complementa as funcionalidades e modelagem. Possui apenas o necessário para identificação e autenticação, como `name`, `password` e `role`.
 - Recursos auxiliares:
 - **Pagination**: Pacote com que fornece paginação ao fluxo de Ticket, permitindo organização e consultas personalizadas.
@@ -106,7 +106,10 @@ curl --request POST \
     "callerId": 1,
     "problem": "Impressora não funciona",
     "description": "A impressora do setor financeiro não imprime documentos.",
-    "status": "OPEN"
+    "status": "OPEN",
+    "createdAt": "11/04/2026",
+    "updatedAt": "11/04/2026",
+    "assignedToId": 2
 }'
 ```
 
@@ -131,9 +134,12 @@ curl --request PUT \
   --url http://localhost:5434/api/v1/tickets/3 \
   --header "Content-Type: application/json" \
   --data '{
+    "callerId": 1,
     "problem": "Impressora não funciona",
     "description": "Foi identificado atolamento de papel.",
     "status": "IN_PROGRESS",
+    "createdAt": "11/04/2026",
+    "updatedAt": "12/04/2026",
     "assignedToId": 2
 }'
 ```
@@ -145,9 +151,12 @@ curl --request PUT \
   --url http://localhost:5434/api/v1/tickets/3 \
   --header "Content-Type: application/json" \
   --data '{
+    "callerId": 1,
     "problem": "Impressora não funciona",
     "description": "Atolamento de papel solucionado.",
     "status": "SOLVED",
+    "createdAt": "11/04/2026",
+    "updatedAt": "13/04/2026",
     "assignedToId": 2
 }'
 ```
@@ -184,14 +193,14 @@ docker compose down -v
 │ id          ├───────────────┤ problem     │
 │ name        │  cria/altera  │ description │
 │ password    │               │ status      │
-│ role        │               │ solvedAt    │
-└─────────────┘               │ createdAt   │                      
+│ role        │               │ createdAt   │
+└─────────────┘               │ updatedAt   │                      
                               │ assignedTo  │
                               └─────────────┘
 ```
 
-- Ticket -> Caller -> Referência à User (chave estrangeira)
-- Ticket -> AssignedTo -> Referência à User (chave estrangeira)
+- Ticket -> CallerId -> Referência à User (chave estrangeira)
+- Ticket -> AssignedToId -> Referência à User (chave estrangeira)
 
 ## Estrutura de Pacotes
 
@@ -231,6 +240,7 @@ helpdeskapi/
 ## Próximas Melhorias
 
 - A maioria dos métodos definidos nos RepositoryGateway's podem jogar ResourceNotFoundException, que não foi definida ainda. Essa exceção, assim como outras, serão definidas na próxima versão do projeto.
+- As operações POST e PUT da entidade Ticket dependem de um mesmo DTO para requests, além de necessitarem de uma inserção de dados excessiva para sua realização. Isso será corrigidio na próxima versão do sistema com DTOs especializados, mapeamento adequado e inserceção automática de certos campos.
 - Ainda é necessário expandir as regras de negócio da aplicação para permitir uso mais fluido e intuitivo do software e seus endpoints, algo que será traduzido em operações PATCH na próxima versão do sistema.
 - Adicionais: refatoração da estrutura, limpeza de código, etc.
 

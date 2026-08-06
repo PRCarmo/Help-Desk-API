@@ -11,7 +11,7 @@ public record TicketResponse(
     String description,
     TicketStatusEnum status,
     LocalDateTime createdAt,
-    LocalDateTime solvedAt,
+    LocalDateTime updatedAt,
     Long assignedToId
 
 ) {}

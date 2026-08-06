@@ -26,7 +26,7 @@ public class TicketEntity {
     
     private LocalDateTime createdAt;
     
-    private LocalDateTime solvedAt;
+    private LocalDateTime updatedAt;
 
     private Long assignedToId;
 
@@ -36,7 +36,7 @@ public class TicketEntity {
         String description, 
         TicketStatusEnum status, 
         LocalDateTime createdAt, 
-        LocalDateTime solvedAt,
+        LocalDateTime updatedAt,
         long assignedToId
         ) {
             this.callerId = callerId;
@@ -44,7 +44,7 @@ public class TicketEntity {
             this.description = description;
             this.status = status;
             this.createdAt = createdAt;
-            this.solvedAt = solvedAt;
+            this.updatedAt = updatedAt;
             this.assignedToId = assignedToId;
     }
     

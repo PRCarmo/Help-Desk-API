@@ -16,7 +16,7 @@ public class TicketDTOMapper {
             ticket.description(),
             ticket.status(),
             ticket.createdAt(),
-            ticket.solvedAt(),
+            ticket.updatedAt(),
             ticket.assignedToId()
         );
     }
@@ -28,7 +28,7 @@ public class TicketDTOMapper {
             request.description(),
             request.status(),
             request.createdAt(),
-            request.solvedAt(),
+            request.updatedAt(),
             request.assignedToId()
         );
     }

@@ -12,7 +12,7 @@ public class TicketEntityMapper {
             ticketDomainObj.description(),
             ticketDomainObj.status(),
             ticketDomainObj.createdAt(),
-            ticketDomainObj.solvedAt(),
+            ticketDomainObj.updatedAt(),
             ticketDomainObj.assignedToId()
         );
     }
@@ -24,7 +24,7 @@ public class TicketEntityMapper {
             ticketEntity.getDescription(),
             ticketEntity.getStatus(),
             ticketEntity.getCreatedAt(),
-            ticketEntity.getSolvedAt(),
+            ticketEntity.getUpdatedAt(),
             ticketEntity.getAssignedToId()
         );
     }

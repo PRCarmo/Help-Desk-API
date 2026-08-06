@@ -109,7 +109,7 @@ public class TicketRepositoryGateway implements TicketGateway {
         TicketEntity requestedTicket = 
             repository.findById(id)
                 .orElseThrow(()->
-                    ResourceNotFoundException("User with ID " + id + " not found")
+                    ResourceNotFoundException("Ticket with ID " + id + " not found")
             );
 
         TicketEntity updateInfo = 
