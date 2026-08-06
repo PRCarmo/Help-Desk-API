@@ -11,25 +11,25 @@ public class TicketDTOMapper {
 
     public TicketResponse toResponse(Ticket ticket) {
         return new TicketResponse(
-            ticket.caller(),
+            ticket.callerId(),
             ticket.problem(),
             ticket.description(),
             ticket.status(),
             ticket.createdAt(),
             ticket.solvedAt(),
-            ticket.assignedTo()
+            ticket.assignedToId()
         );
     }
 
     public Ticket toTicket(TicketRequest request) {
         return new Ticket(
-            request.caller(),
+            request.callerId(),
             request.problem(),
             request.description(),
             request.status(),
             request.createdAt(),
             request.solvedAt(),
-            request.assignedTo()
+            request.assignedToId()
         );
     }
 

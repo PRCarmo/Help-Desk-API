@@ -7,25 +7,25 @@ public class TicketEntityMapper {
 
     TicketEntity toEntity(Ticket ticketDomainObj) {
         return new TicketEntity(
-            ticketDomainObj.caller(),
+            ticketDomainObj.callerId(),
             ticketDomainObj.problem(),
             ticketDomainObj.description(),
             ticketDomainObj.status(),
             ticketDomainObj.createdAt(),
             ticketDomainObj.solvedAt(),
-            ticketDomainObj.assignedTo()
+            ticketDomainObj.assignedToId()
         );
     }
 
     Ticket toDomainObj(TicketEntity ticketEntity) {
         return new Ticket(
-            ticketEntity.getCaller(),
+            ticketEntity.getCallerId(),
             ticketEntity.getProblem(),
             ticketEntity.getDescription(),
             ticketEntity.getStatus(),
             ticketEntity.getCreatedAt(),
             ticketEntity.getSolvedAt(),
-            ticketEntity.getAssignedTo()
+            ticketEntity.getAssignedToId()
         );
     }
 

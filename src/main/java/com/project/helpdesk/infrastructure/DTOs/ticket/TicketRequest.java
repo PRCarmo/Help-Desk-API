@@ -2,17 +2,16 @@ package com.project.helpdesk.infrastructure.DTOs.ticket;
 
 import java.time.LocalDateTime;
 
-import com.project.helpdesk.domain.entities.User;
 import com.project.helpdesk.domain.enums.TicketStatusEnum;
 
 public record TicketRequest(
     
-    User caller, 
+    Long callerId, 
     String problem, 
     String description,
     TicketStatusEnum status,
     LocalDateTime createdAt,
     LocalDateTime solvedAt,
-    User assignedTo
+    Long assignedToId
 
 ) {}

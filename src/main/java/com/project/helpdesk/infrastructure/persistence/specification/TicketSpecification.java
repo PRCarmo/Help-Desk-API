@@ -22,7 +22,7 @@ public class TicketSpecification {
 
             if (callerId != null) {
                 predicates.add(
-                    cb.equal(root.get("caller").get("id"), callerId)
+                    cb.equal(root.get("callerId"), callerId)
                 );
             }
 
@@ -34,7 +34,7 @@ public class TicketSpecification {
 
             if (assignedToId != null) {
                 predicates.add(
-                    cb.equal(root.get("assignedTo").get("id"), assignedToId)
+                    cb.equal(root.get("assignedToId"), assignedToId)
                 );
             }
 
