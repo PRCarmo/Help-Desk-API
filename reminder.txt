@@ -1,0 +1,32 @@
+GERAL:
+
+    TODO: Lembrar de criar mais endpoints para adequar o projeto a regras mais complexas
+    TODO: Adicionar auditoria
+    TODO: Adicionar testes
+    TODO: Lembrar de criar as classes de exceções nas diferentes camadas do projeto
+    TODO: Criar um arquivo simples de CI/CD para esse projeto
+
+CONTROLERS
+
+    TODO: Lembrar de criar a funcionalidade de exceções 
+        pelas camadas do projeto (E substituir @ResponseStatus)
+
+DTOs e MAPPERS:
+
+    TODO: Uso de annotations nos DTOs para limitar estados possíveis dos atributos
+    TODO: Adequar DTOs para queries e operações CRUD
+
+REPOSITORY GATEWAYS:
+
+PERSISTANCE:
+
+USE CASES:
+
+    TODO: Inserir as regras de negócio mais complexas do sistema
+
+README:
+    TODO: Atualizar README a cada nova versão do sistema
+    TODO: Inserir representação JSON das respostas esperadas.
+    TODO: Adicionar tabela de principais endpoints futuramente ()
+
+
