@@ -1,4 +1,4 @@
-package com.project.helpdesk.infrastructure.config;
+package com.project.helpdesk.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
