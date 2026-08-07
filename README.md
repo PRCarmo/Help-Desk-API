@@ -1,4 +1,4 @@
-# Help-Desk-API Versão O.1
+# Help-Desk-API Versão 0.1
 
 Esse projeto é o backend de um helpdesk focado em suporte técnico de TI. É uma API REST, seguindo o padrão Clean Architecture.
 
@@ -15,11 +15,12 @@ Esse projeto é o backend de um helpdesk focado em suporte técnico de TI. É um
 - [IA](#Uso-de-IA-no-Projeto)
 
 ## Modelagem
-- Entidades:
+
+### Entidades:
 - **Ticket**: A entidade central do sistema, contendo informações relevantes que cercam problemas problemas e sua eventual resolução, como `callerId`, `problem`, `status`, `updatedAt`, `AssignedToId`, etc.
 - **User**: Entidade simples que possibilita interação com o sistema e complementa as funcionalidades e modelagem. Possui apenas o necessário para identificação e autenticação, como `name`, `password` e `role`.
 
-- Recursos auxiliares:
+### Recursos auxiliares:
 - **Pagination**: Pacote com que fornece paginação ao fluxo de Ticket, permitindo organização e consultas personalizadas.
 
 ## Decisões de Arquitetura
@@ -241,7 +242,7 @@ helpdeskapi/
 ## Próximas Melhorias
 
 - A maioria dos métodos definidos nos RepositoryGateway's podem jogar ResourceNotFoundException, que não foi definida ainda. Essa exceção, assim como outras, serão definidas na próxima versão do projeto.
-- As operações POST e PUT da entidade Ticket dependem de um mesmo DTO para requests, além de necessitarem de uma inserção de dados excessiva para sua realização. Isso será corrigidio na próxima versão do sistema com DTOs especializados, mapeamento adequado e inserceção automática de certos campos.
+- As operações POST e PUT da entidade Ticket dependem de um mesmo DTO para requests, além de necessitarem de uma inserção de dados excessiva para sua realização. Isso será corrigido na próxima versão do sistema com DTOs especializados, mapeamento adequado e inserção automática de certos campos.
 - Ainda é necessário expandir as regras de negócio da aplicação para permitir uso mais fluido e intuitivo do software e seus endpoints, algo que será traduzido em operações PATCH na próxima versão do sistema.
 - Adicionais: refatoração da estrutura, limpeza de código, etc.
 
